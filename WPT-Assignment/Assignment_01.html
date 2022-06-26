@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment No 01</title>
+</head>
+
+<body>
+    <h1>My Assignment No 01</h1>
+    <hr>
+    <input type="text" placeholder="Enter the number" id="num">
+    <span id="msg">Result is here !!</span><br><br>
+    <input type="button" value="Add" id="add" disabled>
+    <input type="button" value="Edit" id="edit" disabled>
+    <input type="button" value="Delete" id="delete" disabled>
+    <input type="button" value="View All" id="viewall" disabled>
+    <input type="button" value="Show Odd Position" id="odd" disabled>
+    <span id="msg2">The data is here </span>
+    <hr>
+</body>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        console.log("It is working");
+
+        let list = [11, 22, 33, 44, 55, 66, 77, 88, 99, 7];
+        console.log(list);
+
+        let num = document.querySelector('#num');
+        num.addEventListener('blur', () => {
+            console.log('it is blur');
+
+            let temp = document.querySelector('#num').value;
+            let num1 = isEqual(temp);
+            if (num1) {
+                console.log("I  am here...");
+                document.getElementById('edit').disabled = false;
+                document.getElementById('delete').disabled = false;
+                document.getElementById('add').disabled = true;
+                document.getElementById('odd').disabled = true;
+                document.getElementById('viewall').disabled = true;
+                document.getElementById('msg').innerHTML = "Element is present  !!";
+
+            }
+            else {
+                console.log("I an not pr");
+                document.getElementById('add').disabled = false;
+
+                document.getElementById('msg').innerHTML = "The number is not present  ...!!!";
+            }
+
+        });
+
+        let add = document.getElementById('add');
+        add.addEventListener('click', () => {
+
+            let num2 = document.getElementById('add').value;
+
+            let added = addNumber(num2);
+
+            if (added) {
+                document.getElementById('add').disabled = true;
+                document.getElementById('edit').disabled = true;
+                document.getElementById('delete').disabled = true;
+                document.getElementById('msg').innerHTML = "Number is added";
+
+            }
+            else {
+                document.getElementById('add').disabled = true;
+                document.getElementById('edit').disabled = true;
+
+                document.getElementById('msg').innerHTML = "Number is not added";
+
+            }
+
+        });
+
+        let edit = document.getElementById('edit');
+        edit.addEventListener('click', () => {
+
+            let num4 = document.getElementById('edit').value;
+
+            let num3 = prompt("Enter the number here ..!!");
+
+            let edited = editNumber(num3, num4);
+            if (edited) {
+                document.getElementById('edit').disabled = true;
+                document.getElementById('msg').innerHTML = "The number is edited!!";
+
+            }
+
+        });
+
+
+
+        function isEqual(temp) {
+            for (let index = 0; index < list.length; index++) {
+                if (temp == list[index]) {
+                    return true;
+                    break;
+                }
+            }
+            return false;
+
+        }
+
+        function addNumber(num2) {
+            list.push(num2);
+            return true;
+        }
+
+        function editNumber(num3, num4) {
+            for (let index = 0; index < list.length; index++) {
+                if (num4 == list[index]) {
+                    list[index] = num3;
+                    return true;
+                    break;
+                }
+
+            }
+            return false;
+        }
+
+    });
+
+</script>
+
+</html>

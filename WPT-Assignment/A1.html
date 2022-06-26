@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        var items=[];
+        for(let i=0;i<10;i++)
+        items[i]=Math.floor(Math.random() * 100);
+        let count=10;
+
+        console.log(items);
+        window.addEventListener('DOMContentLoaded', ()=>{
+            let no=0;
+            const box = document.querySelector("#box");
+            box.addEventListener('blur',()=>{
+                 no=document.querySelector("#box").value;
+                console.log(no+"value of elemrnt");
+                const output=items.indexOf(parseFloat(no));
+            
+               if(output==-1){
+               
+                document.querySelector("#add").disabled=false;
+                    document.querySelector("#delete").disabled=true;
+                    document.querySelector("#edit").disabled=true;
+                    document.querySelector("#vivewall").disabled=true;
+                    document.querySelector("#odd").disabled=true;
+                    const add = document.querySelector("#add");
+                   
+               }
+               else{
+                    document.querySelector("#add").disabled=true;
+                    document.querySelector("#delete").disabled=false;
+                    document.querySelector("#edit").disabled=false;
+                    document.querySelector("#vivewall").disabled=true;
+                    document.querySelector("#odd").disabled=true;
+        
+               }
+
+
+
+
+});
+
+
+add.addEventListener('click',()=>{
+    no=parseFloat(no);
+    console.log(no);
+                        items[count++]=no;
+
+                        document.querySelector("#add").disabled=true;
+                        console.log(items);
+                        document.querySelector("#vivewall").disabled=false;
+                    document.querySelector("#odd").disabled=false;
+
+            });
+            let edit=document.querySelector("#edit");
+            edit.addEventListener('click',()=>{
+                let x=window.prompt();
+                x=parseFloat(x);
+                const output=items.indexOf(x);
+                if(output==-1){
+                    items[count++]=x;
+                console.log(items);
+                
+                    
+                }
+                else{
+                    document.querySelector("#edit").disabled=true;
+                }
+                
+            });
+            var delete1=document.getElementById("delete");
+            delete1.addEventListener('click',()=>{
+                console.log(no);
+                for( var i = 0; i < items.length; i++){ 
+    
+    if ( items[i] == no) { 
+
+        items.splice(i, 1); 
+    }
+
+}
+console.log(items);
+
+document.querySelector("#delete").disabled=true;
+                    document.querySelector("#edit").disabled=true;
+            });
+           
+            let vivewall=document.querySelector("#vivewall");
+            vivewall.addEventListener('click',()=>{
+                let y="";
+                
+                items.forEach(element => {
+                    y=y+" "+element;
+                });
+                document.querySelector("#y").innerText=y;
+            });
+            let odd=document.querySelector("#odd");
+            odd.addEventListener('click',()=>{
+                let y="";
+                
+               for(let x=0;x<items.length;x++){
+                   if(x%2==0){
+                       console.log("in the even");
+                   }
+                   else{
+               y=y+" "+items[x];
+                   }
+               }
+                document.querySelector("#y").innerText=y;
+            });
+
+
+});
+
+    </script>
+</head>
+<body>
+    <h1><input id="box" type="text"></h1>
+    <br>
+    <p><button value="add" id="add" disabled>add</button>
+    <span></span><button id="edit" disabled>edit</button>
+    <span></span><button id="delete" disabled>delete</button>
+    <span></span><button id="vivewall" disabled>vivewall</button>
+    <span></span><button id="odd" disabled>odposions</button>
+    <hr>
+    <p id="y"></p><span>-----this is array</span>
+
+
+</p>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Assignment 03</title>
+    <style>
+        ::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: rgb(158, 37, 37);
+            opacity: 1;
+            /* Firefox */
+        }
+    </style>
+
+</head>
+
+<body>
+    Enter First Number :<input type="number" id="text1" placeholder="Enter number"><br><br>
+    Enter Second Number :<input type="number" id="text2" placeholder="Enter number">
+    <span id="msg">Result</span><br><br>
+    <input type="button" id="add" value="Add">
+    <input type="button" id="sub" value="Substract">
+    <input type="button" id="mul" value="Multiply">
+    <input type="button" id="div" value="Divide">
+
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+
+            let text1 = document.getElementById('text1');
+            let text2 = document.getElementById('text2');
+            let msg = document.getElementById('msg');
+
+            let add = document.getElementById('add');
+            add.addEventListener('click', () => {
+
+                let addition = (+text1.value) + (+text2.value);  //instead of Numbeer + can be used
+
+                msg.innerHTML = 'Result = ' + addition;
+
+            });
+
+            let sub = document.getElementById('sub');
+            sub.addEventListener('click', () => {
+
+                let subtration = (Number(text1.value) - Number(text2.value));
+                msg.innerHTML = 'Result = ' + subtration;
+
+            });
+
+            let mul = document.getElementById('mul');
+            mul.addEventListener('click', () => {
+
+                let multiplication = (Number(text1.value) * Number(text2.value));
+                msg.innerHTML = 'Result = ' + multiplication;
+
+            });
+
+            let div = document.getElementById('div');
+            div.addEventListener('click', () => {
+
+                let Division = (Number(text1.value) / Number(text2.value));
+                msg.innerHTML = 'Result = ' + Division;
+
+            });
+        });
+    </script>
+</body>
+
+</html>

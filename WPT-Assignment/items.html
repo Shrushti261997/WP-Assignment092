@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $(() => {
+
+            function showalldata() {
+                let ajaxpars = {
+
+                    data: {},
+                    url: "http://localhost:900/displayitems",
+                    type: 'get',
+                    dataType: "json",
+                    success: (dgbs) => {
+                        items = dgbs;
+
+                        let itemscontents = "";
+                        for (let i = 0; i < items.length; i++) {
+                            itemscontents += "<br/>" + items[i].itemno + "  " + items[i].itemname + " " + items[i].itemprice;
+                        }
+                        $("#data").html(itemscontents);
+                    },
+                    error: (error) => {
+                        console.log("Server not called");
+                    }
+                };
+                $.ajax(ajaxpars);
+            }
+            showalldata();
+
+            $("#itemno").blur(() => {
+                let it = { itemno: $("#itemno").val() };
+                console.log(it.itemno);
+                let ajaxpars = {
+
+                    data: it,
+                    url: "http://localhost:900/getdetails",
+                    type: 'get',
+                    dataType: "json",
+                    success: (out) => {
+                        console.log("Server called" + out.status);
+                        if (out.status) {
+                            $("#itemname").val(out.details.itemname);
+                            $("#itemprice").val(out.details.itemprice);
+                            $("#msg").html("Item data found");
+                        } else {
+                            $("#itemname").val("");
+                            $("#itemprice").val("");
+                            $("#msg").html("Item data not found");
+                        }
+                    },
+                    error: (error) => {
+                        console.log("Server not called");
+                    }
+                };
+                $.ajax(ajaxpars);
+            });
+
+            $("#add").click(() => {
+
+                let iteminsert = { itemno: $("#itemno").val(), itemname: $("#itemname").val(), itemprice: $("#itemprice").val() };
+                console.log("The addition event is working");
+                console.log(iteminsert);
+
+                let ajaxpars = {
+                    data: iteminsert,
+                    url: "http://localhost:900/insertdata",
+                    type: 'get',
+                    dataType: "json",
+                    success: (out) => {
+                        console.log("Server is connected" + out);
+                        if (out) {
+                            $("#msg").html("Item added sucessfully");
+                        }
+                        else {
+                            $("#msg").html("Item not added sucessfully");
+                        }
+                    },
+                    error: (error) => {
+                        console.log("Server is not connected");
+                    }
+                }
+                $.ajax(ajaxpars);
+                showalldata();
+            });
+
+
+            $("#update").click(() => {
+
+
+                let iteminsert = { itemno: $("#itemno").val(), itemname: $("#itemname").val(), itemprice: $("#itemprice").val() };
+                console.log("The addition event is working");
+                console.log(iteminsert);
+
+                let ajaxpars = {
+                    data: iteminsert,
+                    url: "http://localhost:900/updatedata",
+                    type: 'get',
+                    dataType: "json",
+                    success: (out) => {
+                        console.log("Server is connected" + out);
+                        if (out) {
+                            $("#msg").html("Item updated sucessfully");
+                        }
+                        else {
+                            $("#msg").html("Item not updated sucessfully");
+                        }
+                    },
+                    error: (error) => {
+                        console.log("Server is not connected");
+                    }
+                }
+                $.ajax(ajaxpars);
+                showalldata();
+
+
+            });
+
+
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Item Assignment 01</h1>
+    <hr>
+    <br>
+    <input type="text" name="no" id="itemno">
+    <span id="msg">Message Here</span><br><br>
+    <input type="text" name="name" id="itemname"><br><br>
+    <input type="text" name="price" id="itemprice"><br><br>
+    <button id="add">Add</button>
+    <button id="update">Update</button>
+    <hr>All the items data is here :-
+    <span id="data"></span>
+
+</body>
+
+</html>

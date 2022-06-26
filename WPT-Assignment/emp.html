@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script>
+        $(() => {
+            console.log("My Dom is working");
+            function getAllEmployeeDetails() {
+                let ajaxpar = {
+                    data: {},
+                    url: "http://localhost:900/getdetails",
+                    type: 'get',
+                    dataType: "json",
+                    success: (output) => {
+                        console.log("My server is conneted!!!");
+                        let employeecontents = "";
+                        for (let i = 0; i < output.length; i++) {
+                            employeecontents += "<br/>" + output[i].empno + "  " + output[i].empname + " " + output[i].empsalary;
+                        }
+                        $("#msg2").html(employeecontents);
+                    },
+                    error: (error) => {
+                        console.log("My server is not conneted!!!");
+                    }
+                }
+                $.ajax(ajaxpar);
+            }
+            getAllEmployeeDetails();
+
+            $("#empno").blur(() => {
+                let it = { empno: $("#empno").val() };
+                console.log(it.empno);
+                let ajaxpars = {
+
+                    data: it,
+                    url: "http://localhost:900/getemployeedetails",
+                    type: 'get',
+                    dataType: "json",
+                    success: (out) => {
+                        console.log("Server called" + out.status);
+                        if (out.status) {
+                            $("#empname").val(out.details.empname);
+                            $("#salary").val(out.details.empsalary);
+                            $("#msg").html("Employee found");
+                        } else {
+                            $("#empname").val("");
+                            $("#salary").val("");
+                            $("#msg").html("Employee not found");
+                        }
+                    },
+                    error: (error) => {
+                        console.log("Server not called");
+                    }
+                };
+                $.ajax(ajaxpars);
+            });
+
+            $("#add").click(() => {
+
+                let empinsert = { empno: $("#empno").val(), empname: $("#empname").val(), empsalary: $("#salary").val() };
+                console.log("The addition event is working");
+                console.log(empinsert);
+
+                let ajaxpars = {
+                    data: empinsert,
+                    url: "http://localhost:900/insertdata",
+                    type: 'get',
+                    dataType: "json",
+                    success: (out) => {
+                        console.log("Server is connected" + out);
+                        if (out) {
+                            $("#msg").html("Employee added sucessfully");
+                        }
+                        else {
+                            $("#msg").html("Employee not added sucessfully");
+                        }
+                    },
+                    error: (error) => {
+                        console.log("Server is not connected");
+                    }
+                }
+                $.ajax(ajaxpars);
+                getAllEmployeeDetails();
+            });
+            $("#update").click(() => {
+
+
+                let empinsert = { empno: $("#empno").val(), empname: $("#empname").val(), empsalary: $("#salary").val() };
+                console.log("The addition event is working");
+                console.log(empinsert);
+
+                let ajaxpars = {
+                    data: empinsert,
+                    url: "http://localhost:900/updatedata",
+                    type: 'get',
+                    dataType: "json",
+                    success: (out) => {
+                        console.log("Server is connected" + out);
+                        if (out) {
+                            $("#msg").html("Employee updated sucessfully");
+                        }
+                        else {
+                            $("#msg").html("Employee not updated sucessfully");
+                        }
+                    },
+                    error: (error) => {
+                        console.log("Server is not connected");
+                    }
+                }
+                $.ajax(ajaxpars);
+                getAllEmployeeDetails();
+
+
+            });
+
+
+
+            $("#delete").click(() => {
+
+
+                let empdel = { empno: $("#empno").val() };
+                console.log(" is working");
+                console.log(empdel);
+
+                let ajaxpars = {
+                    data: empdel,
+                    url: "http://localhost:900/deletedata",
+                    type: 'get',
+                    dataType: "json",
+                    success: (out) => {
+                        console.log("Server is connected" + out);
+                        if (out) {
+                            $("#msg").html("Employee deleted sucessfully");
+                        }
+                        else {
+                            $("#msg").html("Employee not deleted sucessfully");
+                        }
+                    },
+                    error: (error) => {
+                        console.log("Server is not connected");
+                    }
+                }
+                $.ajax(ajaxpars);
+                getAllEmployeeDetails();
+
+
+            });
+
+
+
+
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Employee Assignment</h1>
+    <hr>
+    <input type="text" name="" id="empno" placeholder="Employee number">
+    <span id="msg">Message Here</span>
+    <br><br>
+    <input type="text" name="" id="empname" placeholder="Employee name">
+    <br><br>
+    <input type="text" name="" id="salary" placeholder="Employee salary">
+    <br><br>
+    <button id="add">Add</button>
+    <button id="update">Update</button>
+    <button id="delete">Delete</button>
+    <hr>
+    <span id="msg2">All Employee data is here :-</span>
+</body>
+
+</html>

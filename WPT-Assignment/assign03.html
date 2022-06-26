@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assignment NO 3</title>
+</head>
+
+<body>
+  <h1>Assignment No 3</h1>
+  <div>
+    Enter Element : <input type="text" id="text" /><br />
+    <p>
+      <input type="button" value="ADD" id="add" />
+      <input type="button" value="View Items" id="view" />
+      <br><span id="msg"></span>
+    </p>
+    <p><span id="msg2"></span></p>
+  </div>
+</body>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    console.log("have a chocolate");
+
+    let arr = [];
+
+    let button = document.getElementById("add");
+    button.addEventListener("click", () => {
+      let num = document.querySelector("#text").value;
+      // console.log(num);
+
+      let added = addElement(num);
+      if (added) {
+        let msg = document.getElementById("msg");
+        msg.innerText = " " + num + " number is added";
+      } else {
+        msg.innerText = " " + num + " number is already present";
+      }
+
+    });
+
+    let button2 = document.getElementById('view');
+    button2.addEventListener('click', () => {
+      //console.log(arr);
+      let msg2 = document.querySelector('#msg2');
+      msg2.innerText = view(arr);
+    });
+
+    function addElement(num) {
+      let temp = num;
+      for (let index = 0; index < arr.length; index++) {
+        if (temp == arr[index]) {
+          return false;
+        }
+      }
+      arr.push(num);
+      return true;
+    }
+
+    function view(array) {
+      let element = '';
+      for (let index = 0; index < array.length; index++) {
+        element = element + " " + array[index];
+      }
+      return element;
+    }
+
+  });
+</script>
+
+</html>

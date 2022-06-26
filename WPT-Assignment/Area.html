@@ -1,0 +1,74 @@
+<!-- 4.	Build a complete UI by using jquery on presentation, real server side with database where scenario is very simple, if we give pincode, areaname should appear.
+a.	In one textbox we type pincode, when blur event occurs show the area name next to the pincode textbox.
+ -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Document</title>
+
+   <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"></script>
+
+   <script>
+
+      $(() => {
+         console.log("dom working");
+
+         $('#num1').blur(() => {
+
+            console.log("blur is working");
+
+            const p1 = { pincode: $('#num1').val() };  //send this to server ,so do ajax and 
+            console.log(p1);
+
+
+            let ajaxparams = {
+               data: p1,
+               url: "http://localhost:800/getAreaName",
+               type: 'get',
+               dataType: 'json',
+               success: (output) => {
+
+                  // $("#num2").val(output.itemdetails.area);
+                  console.log("My server is connected " + output.itemnofoundstatus);
+                  if (output.itemnofoundstatus) {
+                     $("#num2").val(output.itemdetails.area);
+                     $("#msg").html("address found");
+                  }
+                  else {
+                     $("#num2").val("");
+                     $("#msg").html("address not found");
+                  }
+
+               },
+               error: () => {
+                  console.log("server is not connected");
+               }
+            }
+            $.ajax(ajaxparams);
+
+         });
+
+      });
+
+
+   </script>
+</head>
+
+<body>
+
+   <h1>Area from pincode</h1>
+
+   <hr>
+   Pincode: <input type="text" id="num1" placeholder="pincode"><br><br>
+   Area :<input type="text" id="num2" placeholder="area">
+   <span id="msg">Result is here</span>
+</body>
+
+</html>

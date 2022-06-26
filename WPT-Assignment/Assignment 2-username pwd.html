@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="box">
+        UserName : <input type="text" name="" id="text1" placeholder="username"> <br><br>
+        Password : <input type="text" name="" id="text2" placeholder="password"><br><br>
+        <input type="button" value="submit" id="btn"> <span id="msg"> </span>
+    </div>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            let arr = [];
+            arr.push({ user: 'shrushti', pass: 'NaralDesai' });
+            arr.push({ user: 'Hari', pass: 'Rampur' });
+
+            let btn = document.querySelector('#btn');
+            btn.addEventListener('click', () => {
+                let u = document.querySelector('#text1');
+                let p = document.querySelector('#text2');
+                let msg = document.querySelector('#msg');
+                // console.log(u.value + p.value);
+                for (let index = 0; index < arr.length; index++) {
+                    if (u.value == arr[index].user && p.value == arr[index].pass) {
+                        msg.innerHTML = "user  found";
+                        break;
+                    }
+                    else {
+                        msg.innerHTML = "user  not found";
+                    }
+                }
+            });
+
+        });
+
+    </script>
+</body>
+
+</html>

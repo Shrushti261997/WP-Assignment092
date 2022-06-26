@@ -1,0 +1,60 @@
+<!-- 5.	Change the donkeys name
+a.	Build a complete UI by using jquery on presentation, real server side with database where scenario is very simple, if we give acno, balance should appear.
+b.	In one textbox we type accno, when blur event occurs show the balance, should appear  next to the acno textbox. -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2_Assignment</title>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.js"
+        integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <h1>1st Assignment Banking</h1>
+    Account No :<input type="text" placeholder="Enter Account Number" name="acno" id="acno"><br><br>
+
+    Your Balance <input type="text" id="bal" placeholder="balance">
+
+    <script>
+        $(() => {
+            console.log("hii");
+            $('#acno').blur(() => {
+                console.log("blur is working in window");
+
+                let acno = { userAccNo: $("#acno").val() };
+                console.log(acno);
+
+                let output = {
+                    data: acno,
+                    url: 'http://localhost:990/balance',
+                    type: 'get',
+                    dataType: 'json',
+                    success: (obj) => {
+                        // console.log('json object reveived successsfully');
+
+                        $('#bal').val(obj.balance);
+                    },
+                    error: (obj) => {
+                        // console.log('count not get output');
+
+                    }
+                }
+
+                $.ajax(output);
+
+            });
+
+        });
+    </script>
+
+</body>
+
+</html>
